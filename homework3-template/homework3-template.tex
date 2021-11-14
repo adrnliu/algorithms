@@ -1,0 +1,251 @@
+\documentclass[12pt]{article}
+
+% -- Packages
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{algorithmic}
+\usepackage[ruled,vlined,commentsnumbered,titlenotnumbered]{algorithm2e}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{parskip}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{cmbright}
+\usepackage[many]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+% -- Macros
+
+\newcommand{\HWNum}{3}
+\newcommand{\Rule}{\rule{\linewidth}{0.5pt}}
+\newcommand{\Expecting}[1]{[\textbf{We are expecting:} #1]}
+\newcommand{\Points}[1]{\textbf{(#1 pt.)}}
+
+
+
+
+\begin{document}
+	% Header
+	\begin{tcolorbox}
+		\textbf{CS 161}\hfill\textbf{Problem Set \HWNum{}}
+
+		\textbf{Winter 2021}\hfill\textbf{Due:} Wed, Feb 3 at 11:59 pm PST
+	\end{tcolorbox}
+
+	% Disclaimers
+	\paragraph{Style guide and expectations:} Please see the ``Homework'' part of the ``Resources'' section on the webpage for guidance on what we are looking for in homework solutions. We will grade according to these standards. You should cite all sources you used outside of the course material.
+
+	\paragraph{What we expect:} Make sure to look at the ``\textbf{We are expecting}'' blocks below each problem to see what we will be grading for in each problem!
+
+	\Rule
+
+	% Exercises
+	\section*{Exercises}
+
+	We suggest you do these on your own. As with any homework problem, though, you may ask the course staff for help.
+
+    [\textbf{NOTE:} These exercise questions \textbf{will not} be graded \textbf{for this homework only}, but we strongly recommend doing them as it will be good practice for the upcoming exam.]
+
+	\Rule
+
+	\begin{enumerate}[label=\textbf{\arabic*.}]
+
+%%%%%%%%%% Exercise 1 %%%%%%%%%%%%%
+\item \textbf{[OPTIONAL]}
+[\textbf{Majority Element}] Suppose we are given an array $A$ of length $n$ with the promise that there exists a majority element (i.e an element that appears $> \frac{n}{2}$ times). Additionally, we are only allowed to check whether two elements are equal (no $>$ or $<$ comparisons). Design an $O(n \log n)$ algorithm to find the majority element, using divide and conquer. Informally, explain the correctness and runtime of your algorithm.
+
+	\Expecting{pseudocode, an english description of the main idea of the algorithm, as well as an informal explanation of correctness and runtime} \\
+
+
+
+
+\item \textbf{[OPTIONAL]} [\textbf{Median of Two}] Given two arrays of length $n$, find the median of all elements of the two arrays.
+\begin{enumerate}
+    \item If the arrays are unsorted, what is the best you can do?
+
+    \Expecting{A runtime and a brief description of your algorithm.}
+
+    \item If the arrays are sorted, can you do better?
+
+    \Expecting{A short English description, Pseudocode, runtime analysis.}
+\end{enumerate}
+	\end{enumerate}
+
+	\newpage
+ 	\Rule
+
+ 	% Problems
+	\section*{Problems}
+
+	You may talk with your fellow CS 161-ers about the problems. However:
+	\begin{itemize}
+		\item Try the problems on your own \emph{before} collaborating.
+		\item Write up your answers yourself, in your own words.   You should never share your typed-up solutions with your collaborators.
+		\item If you collaborated, list the names of the students you collaborated with at the beginning of each problem.
+	\end{itemize}
+
+    [\textbf{NOTE:} The following questions \textbf{will} be graded.]
+
+	\Rule
+
+	\begin{enumerate}[label=\textbf{\arabic*.}, resume]
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Problem 2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\item\Points{12} In this exercise, we'll explore different types of randomized algorithms.  We say that a randomized algorithm is a \textbf{Las Vegas algorithm} if it is always correct (that is, it returns the right answer with probability 1), but the running time is a random variable.  We say that a randomized algorithm is a \textbf{Monte Carlo algorithm} if there is some probability that it is incorrect.  For example, QuickSort (with a random pivot) is a Las Vegas algorithm, since it always returns a sorted array, but it might be slow if we get very unlucky.
+
+We will revisit the Majority Element problem to get more insight on randomized algorithms.
+
+\begin{center}
+\begin{tabular}{|c|p{3cm}|p{2cm}|p{2cm}|p{4cm}|}
+\hline
+Algorithm & Monte Carlo or Las Vegas? & Expected running time
+& Worst-case running time & Probability of returning a majority element \\
+\hline
+\textbf{Algorithm 1} &  &  &  & \\
+\hline
+\textbf{Algorithm 2} &  &  &  & \\
+\hline
+\textbf{Algorithm 3} &  &  &  & \\
+\hline
+\end{tabular}
+\end{center}
+
+\Expecting{Your filled in-table, and a short justification for each entry of the table.
+You may use asymptotic notation for the running times; for the probability of returning a majority element, give the tightest bound that you can given the information provided.
+Fill in the table below, and justify your answers.}
+\newpage
+\begin{algorithm}[H]
+\KwIn{A population $P$ of $n$ elements}
+\While{true}
+{
+Choose a random $p \in P$\;
+\If{\textsc{isMajority}($P$, $p$)}{ \Return{ $p$}\; }
+}
+\caption{\textsc{findMajorityElement1}}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\KwIn{A population $P$ of $n$ elements}
+\For{100 iterations}
+{
+Choose a random $p \in P$\;
+\If{\textsc{isMajority}($P$, $p$)}{ \Return{ $p$ }\;}
+}
+\Return{ $P[0]$\;}
+\caption{\textsc{findMajorityElement2}}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\KwIn{A population $P$ of $n$ elements}
+Put the elements in $P$ in a random order.\;
+
+\tcc{Assume it takes time $\Theta(n)$ to put the $n$ elements in a random order}
+\For{ $p \in P$ }
+{
+\If{\textsc{isMajority}($P$, $p$)}{ \Return{ $p$ }\; }
+}
+\caption{\textsc{findMajorityElement3}}
+\end{algorithm}
+
+\begin{algorithm}[H]
+\KwIn{A population $P$ of $n$ elements and a element $p \in P$}
+\KwOut{True if $p$ is a member of a majority species}
+
+count $\gets$ 0\;
+\For{ $q \in P$ }
+{
+	\If{ $p = q$ }{ count ++\;}
+}
+\If{ count $> n/2$ }{\Return{True}\;}
+\Else{\Return{False}\;}
+\caption{\textsc{isMajority}}
+\end{algorithm}
+
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Problem 3
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\item \Points{10} [\textbf{Counting Inversions}] Given an array $A$ of $n$ elements, we call $(i, j)$ an inversion if $0\le i < j <n$ and $A[i] > A[j]$.
+\begin{enumerate}
+	\item \Points{3} Describe an $O(n^2)$ algorithm to count the number of inversions in a given array.
+
+	\Expecting{Pseudocode, and a short English description explaining the main
+		idea of the algorithm. No justification of the correctness or running time is required.}
+
+
+	\item \Points{7} Describe an $O(n\log n)$ algorithm to count the number of inversions in a given array. [\textit{Hint:} Think about how you can modify MergeSort to solve this problem.]
+
+	\Expecting{Pseudocode, and a short English description explaining the main
+		idea of the algorithm.We are also Expecting an informal justification of correctness and of the running time.}
+
+
+
+\end{enumerate}
+
+
+
+
+
+\newpage
+\item \Points{10} [\textbf{Untitled Duck Problem}]
+Suppose that the $n$ ducks are standing in a line.
+\begin{center}
+\includegraphics[width=1cm]{duck}
+\hspace{1cm}
+\includegraphics[width=1cm]{duck}
+\hspace{1cm}
+\includegraphics[width=1cm]{duck}
+\hspace{1cm}
+\includegraphics[width=1cm]{duck}
+\hspace{1cm}
+\includegraphics[width=1cm]{duck}
+\hspace{1cm}
+\includegraphics[width=1cm]{duck}
+\end{center}
+
+Each duck has a favorite activity: \textbf{honking}, \textbf{eating}, or simply doing nothing (\textbf{idling}). And since they are ducks, they do whatever they like to do all day long. You'd like to sort the ducks so that all the honking ducks are on the left, the eating ducks are on the right, and the idling ducks are in the middle.\footnote{Having honking and eating ducks close would be disastrous. Don't ask why.}
+You can only do two types of operations on the ducks:
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Operation & Result\\
+\hline
+\texttt{ask(j)} & Ask the duck in position $j$ about its favorite activity \\
+\hline
+\texttt{swap(i,j)} & Swap the duck in position $j$ with the duck in position $i$ \\
+\hline
+\end{tabular}
+\end{center}
+
+You want to sort the ducks as soon as possible, but each of the above operations takes a constant time to execute. Also, you didn't bring a piece of paper or a pencil, so you can't write anything down and have to rely on your memory.  Like many humans, you can remember up to seven integers\footnote{see, e.g., \url{https://en.wikipedia.org/wiki/The_Magical_Number_Seven,_Plus_or_Minus_Two}}  between $0$ and $n-1$ at a time.
+
+
+\begin{enumerate}
+\item \Points{7}
+Design an algorithm to sort the ducks which takes $O(n)$ seconds, and requires you to remember no more than seven integers\footnote{You don't need to use all seven storage spots, but you can if you want to.  Can you do it with only two?} between $0$ and $n-1$ at a time.
+
+\Expecting{Pseudocode \textbf{AND} a short English description of your algorithm.}
+
+\item \Points{3} Justify why your algorithm is correct, why it takes only $O(n)$ seconds, and why it requires you to remember no more than seven integers at a time.
+
+
+\Expecting{Informal justifications of the correctness, runtime, and memory usage of your algorithm that are both clear and convincing to the grader.  If it's easier for you to be clear, you can give a formal proof of correctness, but you do not have to. It is okay to appeal to the correctness of an algorithm that we have seen in class, as long as you clearly explain the relationship between the two algorithms.}
+\end{enumerate}
+	\end{enumerate}
+\end{document}

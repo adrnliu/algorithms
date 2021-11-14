@@ -1,0 +1,189 @@
+\documentclass[12pt]{article}
+
+% -- Packages
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{algorithmic}
+\usepackage[ruled,vlined,commentsnumbered,titlenotnumbered]{algorithm2e}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{url}
+\usepackage{parskip}
+\usepackage[margin=1in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{cmbright}
+\usepackage[many]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{hyperref}
+
+% -- Macros
+
+\newcommand{\HWNum}{1}
+\newcommand{\Rule}{\rule{\linewidth}{0.5pt}}
+\newcommand{\Expecting}[1]{[\textbf{We are expecting:} #1]}
+\newcommand{\Points}[1]{\textbf{(#1 pt.)}}
+
+
+
+
+\begin{document}
+	% Header
+	\begin{tcolorbox}
+		\textbf{CS 161}\hfill\textbf{Problem Set \HWNum{}}
+		
+		\textbf{Winter 2021}\hfill\textbf{Due:} Wed, Jan 20 at 11:59 pm PST
+	\end{tcolorbox}
+	
+	% Disclaimers
+	\paragraph{Style guide and expectations:} Please see the ``Homework'' part of the ``Resources'' section on the webpage for guidance on what we are looking for in homework solutions. We will grade according to these standards. You should cite all sources you used outside of the course material.
+	
+	\paragraph{What we expect:} Make sure to look at the ``\textbf{We are expecting}'' blocks below each problem to see what we will be grading for in each problem!
+	
+	\Rule
+	
+	% Exercises
+	\section*{Exercises}
+	
+	We suggest you do these on your own. As with any homework problem, though, you may ask the course staff for help.
+
+	\Rule
+	
+	\begin{enumerate}[label=\textbf{\arabic*.},start=0]
+		\item \Points{1} Have you thoroughly read the course policies on the webpage?
+		
+		\Expecting{The answer ``yes.''}
+		
+
+		\item \Points{10} Using the definition of big-O, formally prove the following statements.
+		\begin{enumerate}
+			\item $2\sqrt{n} + 6  = O(\sqrt{n})$.
+			\item $10^n$ is \textbf{not} $O(2^n)$.
+		\end{enumerate}
+		
+		\Expecting{For each part, a rigorous (but short) proof, using the definition of $O()$.}
+		
+		
+		\newpage
+		\item \Points{10} For each blank, indicate whether $A_i$ is in $O$, $\Omega$, or $\Theta$ of $B_i$.  More than one space per row can be valid.
+		
+		\Expecting{All valid spaces in the table to be marked (checkmark, ``x'', etc.). No explanation is required.}
+		
+		\begin{table}[H]
+		\centering
+		\setlength{\extrarowheight}{3pt}
+		\begin{tabular}{|l|l|l|l|l|}
+		\hline
+		\textbf{A}             & \textbf{B}      & \textbf{$O$} & \textbf{$\Omega$} & \textbf{$\Theta$} \\ \hline
+		$\log^9 n$             & $n^{0.9}$    &              &                   &                   \\ \hline
+		$2n^{10}$                  & $2^n$           &              &                   &                   \\ \hline
+		$3^{3n}$                  & $3^{4n}$       &              &                   &                   \\ \hline
+		$\ln{n}$           & $\log{n}$    &              &                   &                   \\ \hline
+		$\log(n!)$             & $\log(n^n)$      &              &                   &                   \\ \hline
+		$(5/4)^n$              & $(4/5)^n$           &              &                   &                   \\ \hline
+		$n^2$                  & $4^{\log n}$    &              &                   &                   \\ \hline
+		$n^{0.1}$             & $(0.1)^n$         &              &                   &                   \\ \hline
+		$\log\log n$           & $\sqrt{\log n}$ &              &                   &                   \\ \hline
+		$n^{1/\log n}$         & $1$             &              &                   &                   \\ \hline
+		\end{tabular}
+		\end{table}
+		
+	\end{enumerate}
+
+	\newpage
+ 	\Rule
+
+ 	% Problems
+	\section*{Problems}
+	
+	You may talk with your fellow CS 161-ers about the problems. However:
+	\begin{itemize}
+		\item Try the problems on your own \emph{before} collaborating.
+		\item Write up your answers yourself, in your own words.   You should never share your typed-up solutions with your collaborators.
+		\item If you collaborated, list the names of the students you collaborated with at the beginning of each problem.
+	\end{itemize}
+
+	\Rule
+	
+	\begin{enumerate}[label=\textbf{\arabic*.},resume]
+		\item \Points{10} The Fibonacci numbers are a famous sequence defined as
+		\[
+			F_0 = 0 \qquad F_1 = 1 \qquad F_{n+2} = F_n + F_{n+1}
+		\]
+		
+		For example, the first few terms of the Fibonacci sequence are
+		\[
+			0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, \ldots
+		\] Show by induction that
+		\begin{enumerate}
+		    \item $F_{n} = O(3^n)$.
+		    \item $F_{2n} = \Omega(2^n)$.
+		\end{enumerate}
+		
+		\Expecting{For each part, a formal proof by induction. Make sure to clearly label your
+		inductive hypothesis, base case, inductive step, and conclusion.}
+		
+		
+		\newpage
+		\item
+		\textbf{New friends.} Each of $n$ users spends some time on a social media site. For
+		each $i = 1, . . . , n$, user $i$ enters the site at time $a_i$ and leaves at time $b_i \geq a_i$. You are
+		interested in the question: how many distinct pairs of users are on the site at the same
+		time? (Here, the pair $(i, j)$ is the same as the pair $(j, i)$).
+		
+		\textbf{Example:} Suppose there are 5 users with the following entering and leaving times:
+		
+		\begin{table}[H]
+		\centering
+		\setlength{\extrarowheight}{3pt}
+		\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{User}             & \textbf{Enter Time}      & \textbf{Leave Time} \\ \hline
+		1            &  1    &  4           \\ \hline
+		2                 & 2         &          5    \\ \hline
+		3               & 7     &         9     \\ \hline
+		4           & 9   &    10         \\ \hline
+		5            & 6      &  10   \\ \hline
+		\end{tabular}
+		\end{table}
+		
+		Then, the number of distinct pairs of users who are on the site at the same time is four:
+		these pairs are (1, 2), (3, 4), (4, 5), (3, 5).
+		
+		\textbf{Note:} If the Leave Time of one user is the same as the Enter Time of another, this counts as an overlap. For example, user 3's Leave Time is 9, and User 4's Enter Time is 9, and this counts as an overlap.
+		\begin{enumerate}
+		\item \Points{3} Given input $(a_1, b_1),(a_2, b_2), . . . ,(a_n, b_n)$ as above, there is a straightforward
+		algorithm that takes about $n^2$
+		time to compute the number of pairs of users who
+		are on the site at the same time. Give this algorithm and explain why it takes time
+		about $n^2$.
+		
+		\Expecting {Pseudocode for your algorithm, a clear English description of what your
+		algorithm is doing and why it is correct, and a brief runtime analysis. You do not need to prove that your algorithm is correct.}
+		
+		
+		\item \Points{5} Give an $O(n \log(n))$-time algorithm to do the same task and analyze its
+		running time. (\textbf{Hint:} consider sorting relevant events by time).
+		
+		
+		\Expecting {Pseudocode for your algorithm, a clear English description of what your
+		algorithm is doing and why it is correct, and a brief runtime analysis. You do not need to prove that your algorithm is correct.}
+		
+		\end{enumerate}
+		
+		\newpage
+		\item \Points{1} \textbf{Feedback: Prompt of the Week.}
+		There's no ``correct'' answer here, and it is completely anonymous!
+		Go to \href{https://forms.gle/3PsgYHHRzvdHP8j36}{https://forms.gle/3PsgYHHRzvdHP8j36} and answer the prompt of the week. (You do not need to identify on the form to get the 1 point credit.)
+		
+		Did you fill out the poll?
+		
+		\Expecting{The answer ``yes.''}
+		
+	\end{enumerate}
+\end{document}
